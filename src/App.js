@@ -1,7 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import {getCoinsInfo} from "./data";
+import {useEffect, useState} from "react";
 
 function App() {
+    let [data, setData] = useState([])
+
+    useEffect(()=>{
+        getCoinsInfo()
+            .then(result=>{
+                setData(result.result)
+            })
+    }, [])
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +28,13 @@ function App() {
           Learn React
         </a>
       </header>
+      <div>
+          {
+              data.map((value, index)=>{
+                  return <div key={index}>{value.id}</div>
+              })
+          }
+      </div>
     </div>
   );
 }
